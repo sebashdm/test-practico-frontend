@@ -1,6 +1,6 @@
 
 .logoContainer {
-  height: 20px;
+  height: 100%;
 
   a {
     display: flex;
@@ -8,11 +8,11 @@
   }
 
   .logo {
-    height: 100px;
+    height: 5px;
     transition: filter 200ms ease;
 
     img {
-      height: 100%;
+      height: 100px;
     }
   }
 }

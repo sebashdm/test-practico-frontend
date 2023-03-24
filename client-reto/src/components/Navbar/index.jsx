@@ -1,11 +1,15 @@
 import React from "react";
-
-import Logo from "../Logo";
+import Container from "../MainContainer";
+import Logo from "./Logo";
+import SearchBox from "./SearchBox";
 import Styles from "./styles.module.scss";
 
 const Navbar = () => (
   <nav className={Styles.navbar}>
-    <Logo />
+    <Container>
+      <Logo />
+      <SearchBox />
+    </Container>
   </nav>
 );
 

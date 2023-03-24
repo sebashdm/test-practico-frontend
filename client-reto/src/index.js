@@ -1,20 +1,22 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import App from './App';
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { store } from "./redux/store";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <React.StrictMode>
-        <HelmetProvider>
-            <BrowserRouter>
-      
-                <App />
-         
-            </BrowserRouter>
-        </HelmetProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
+  <React.StrictMode>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </HelmetProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

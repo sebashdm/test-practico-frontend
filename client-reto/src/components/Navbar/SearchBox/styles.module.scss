@@ -1,0 +1,38 @@
+@import '../../../utils/variables.scss';
+
+.searchForm {
+    display: flex;
+    transition: border-color 200ms ease;
+    width: $spacing-400;
+    min-width: 0;
+    box-shadow: 1px 1px 2px $gray-200;
+    border: 1px solid transparent;
+    &:focus-within {
+      border-color: blue;
+    }
+    input {
+      height: $font-600;
+      font-family: sans-serif;
+      font-size: $font-300;
+      padding: 0.5em 0.75em;
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: none;
+      ::placeholder {
+        line-height: 1; /* adjust as needed */
+      }
+    }
+    button {
+      width: 50px;
+      align-self: stretch;
+      background-color: $gray-100;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      transition: background-color 200ms ease;
+      cursor: pointer;
+    }
+  }
