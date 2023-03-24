@@ -4,7 +4,7 @@
     "engines": {
         "node": "14.16.1"
     },
-    "description": "test practico MELI, construccion endpoins",
+    "description": "test practico MELI, construccion endpoints",
     "main": "index.js",
     "scripts": {
         "start": "node ./src/index.js",
