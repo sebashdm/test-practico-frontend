@@ -1,0 +1,18 @@
+
+.logoContainer {
+  height: 20px;
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    height: 100px;
+    transition: filter 200ms ease;
+
+    img {
+      height: 100%;
+    }
+  }
+}
