@@ -5,6 +5,8 @@ import { HTTP_STATUS } from "../../redux/constants";
 import { fecthAsyncItems } from "../../redux/items/itemsSlice";
 import ItemsList from "./ItemList";
 import { getLoadingStatus } from "../../redux/items/itemsSlice";
+import Loading from "../../components/Loading";
+import ErrorComponent from "../../components/ErrorComponent";
 
 const Results = () => {
   const dispatch = useDispatch();
@@ -16,8 +18,9 @@ const Results = () => {
 
   return (
     <>
-      {loading === HTTP_STATUS.PENDING && <h1>Cargando...</h1>}
+      {loading === HTTP_STATUS.PENDING && <Loading />}
       {loading === HTTP_STATUS.FULFILLED && <ItemsList />}
+      {loading === HTTP_STATUS.REJECTED && <ErrorComponent />}
     </>
   );
 };

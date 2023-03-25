@@ -1,0 +1,35 @@
+@import "../../utils/variables.scss";
+
+.flex {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-300;
+  max-height: 20vh;
+  max-width: 40vw;
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .errorContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .imageContainer {
+    width: 100px;
+    margin-right: 40px;
+  }
+
+  .image {
+    width: 100%;
+    height: auto;
+  }
+
+  .textContainer {
+    flex: 1;
+  }
+}
