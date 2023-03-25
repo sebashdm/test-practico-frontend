@@ -1,27 +1,27 @@
-@import '../../../utils/variables.scss';
+@import "../../../utils/variables.scss";
 .flex {
   display: flex;
   justify-content: center;
   margin-top: $spacing-300;
-  min-height: 60vh;
+  min-height: 20vh;
 
   .flexContainer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      align-self: stretch;
-      width: 100%;
-      text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
 
-      h2 {
-          margin-top: $spacing-100;
-          margin-bottom: $spacing-100 / 2;
-          color: $gray-300;
-      }
+    h2 {
+      margin-top: $spacing-100;
+      margin-bottom: $spacing-100 / 2;
+      color: $gray-300;
+    }
 
-      p {
-          color: $gray-200;
-      }
+    p {
+      color: $gray-200;
+    }
   }
 }
