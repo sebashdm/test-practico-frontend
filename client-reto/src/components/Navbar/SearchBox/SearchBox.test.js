@@ -1,66 +1,65 @@
-import { screen, render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import {store} from '../../features/store';
-import SearchBar from './index';
+import React from "react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
+import configureMockStore from "redux-mock-store";
+import { Provider } from "react-redux";
+import SearchBox from "./index";
+import { fecthAsyncItems } from "../../../redux/items/itemsSlice";
+import thunk from "redux-thunk";
+import { BrowserRouter } from "react-router-dom";
 
-describe('Componente <Searchbar />', () => {
-    beforeEach(() => {
-        render(
-            <BrowserRouter>
-              <Provider store={store}>
-                <SearchBar />
-              </Provider>
-            </BrowserRouter>
-        );
+const mockStore = configureMockStore([thunk]);
+describe("SearchBox", () => {
+  let store;
+
+  beforeEach(() => {
+    store = mockStore({
+      items: {
+        items: [],
+        selectedItem: {},
+        loading: null,
+      },
     });
+  });
 
-    it('Renders correctly', () => {
-        const form = screen.getByTestId('search-form');
-        expect(form).toBeInTheDocument();
-    });
+  it("should render correctly", () => {
+    const { getByPlaceholderText } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <SearchBox />
+        </BrowserRouter>
+      </Provider>
+    );
 
-    it('renders placeholder text', () => {
-        const input = screen.getByPlaceholderText('Buscar productos, marcas y más...');
-        expect(input).toBeInTheDocument();
-    });
+    expect(
+      getByPlaceholderText("Buscar productos, marcas y más...")
+    ).toBeTruthy();
+  });
 
+  it("should dispatch fetchAsyncItems when the form is submitted with a search term", () => {
+    const { getByPlaceholderText, getByTestId } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <SearchBox />
+        </BrowserRouter>
+      </Provider>
+    );
 
-    it('Contains a button', () => {
-        const button = screen.getByRole('button');
-        expect(button).toBeInTheDocument();
-    });
+    const searchInput = getByPlaceholderText(
+      "Buscar productos, marcas y más..."
+    );
+    fireEvent.change(searchInput, { target: { value: "iphone" } });
+    fireEvent.submit(getByTestId("search-form"));
 
-    it('can type in the input text', () => {
-        const input = screen.getByPlaceholderText('Buscar productos, marcas y más...');
-        userEvent.type(input, 'ps5');
-        expect(input).toHaveValue('ps5');
-    });
+    const expectedAction = {
+      type: "items/fecthAsyncItems/pending",
+      meta: {
+        arg: "iphone",
+        requestId: expect.any(String),
+        requestStatus: "pending",
+      },
+    };
 
-    it('Can press enter to send', () => {
-        const input = screen.getByPlaceholderText('Buscar productos, marcas y más...');
-        const form = screen.getByTestId('search-form');
-        const mockFunction = jest.fn();
-        form.onsubmit = mockFunction;
-        userEvent.type(input, '{enter}');
-        expect(mockFunction).toHaveBeenCalledTimes(1);
-    });
-
-    it('Can click to send', () => {
-        const button = screen.getByRole('button', { name: 'Buscar' });
-        const form = screen.getByTestId('search-form');
-        const mockFunction = jest.fn();
-        form.onsubmit = mockFunction;
-        userEvent.click(button);
-        expect(mockFunction).toHaveBeenCalledTimes(1);
-    });
-
-    it('url change before send', () => {
-        const input = screen.getByPlaceholderText('Buscar productos, marcas y más...');
-        userEvent.type(input, 'ps5');
-        userEvent.type(input, '{enter}');
-        expect(window.location.pathname).toEqual('/items');
-        expect(window.location.search).toEqual('?search=ps5');
-    });
+    const actions = store.getActions();
+    expect(actions).toEqual([expectedAction]);
+  });
 });
