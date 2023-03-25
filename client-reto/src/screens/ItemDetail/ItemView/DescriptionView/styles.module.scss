@@ -1,0 +1,25 @@
+@import "../../../../utils/variables.scss";
+
+.itemDescription {
+  margin-top: $spacing-200 * 2;
+  max-width: 70ch;
+
+  h3 {
+    color: $gray-400;
+    font-size: $font-600;
+    margin-bottom: $spacing-200;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .itemDescription {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: $breakpoint-xs) {
+  .itemDescription h3 {
+    font-size: $font-500;
+    margin-bottom: $spacing-100;
+  }
+}

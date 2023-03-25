@@ -1,0 +1,27 @@
+@import "../../utils/variables.scss";
+.button {
+  background-color: $blue;
+  border: 0;
+  border-radius: 4px;
+  padding: $spacing-100;
+  color: white;
+  font-family: inherit;
+  line-height: 1;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    background-color: darken($blue, 10%);
+  }
+
+  &:focus {
+    background-color: darken($blue, 10%);
+    outline: none;
+    box-shadow: 0 0 0 3px lighten($blue, 25%);
+  }
+
+  &:active {
+    background-color: darken($blue, 20%);
+  }
+}

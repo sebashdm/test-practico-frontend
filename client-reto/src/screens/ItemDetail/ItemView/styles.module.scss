@@ -1,0 +1,106 @@
+@import "../../../utils/variables.scss";
+
+.itemContainer {
+  padding: $spacing-200;
+
+  .flexContainer {
+    display: flex;
+  }
+
+  .itemImage {
+    flex: 0 1 680px;
+    max-height: 680px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .itemInfo {
+    flex: 1 0 300px;
+    margin-left: $spacing-100;
+  }
+
+  .itemCondition {
+    font-size: $font-200;
+  }
+
+  .itemTitle {
+    margin-top: $spacing-100;
+    font-size: $font-500;
+  }
+
+  .itemPrice {
+    font-size: $font-700;
+    margin: $spacing-200 0;
+    white-space: nowrap;
+
+    span {
+      display: inline-block;
+      padding-top: 0.25em;
+      padding-left: 0.25em;
+      vertical-align: top;
+      font-size: $font-500;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .itemDescription {
+    margin-top: $spacing-200 * 2;
+    max-width: 70ch;
+
+    h3 {
+      color: $gray-400;
+      font-size: $font-600;
+      margin-bottom: $spacing-200;
+    }
+  }
+
+  @media (max-width: $breakpoint-lg) {
+    .flexContainer {
+      flex-direction: column;
+    }
+
+    .itemImage {
+      flex: 0;
+      margin-bottom: $spacing-200;
+    }
+
+    .itemInfo {
+      flex: 0;
+      margin-left: 0;
+    }
+
+    .itemPrice {
+      margin: $spacing-100 0;
+    }
+
+    .itemDescription {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    .itemTitle {
+      font-size: $font-400;
+      line-height: 1.5;
+    }
+
+    .itemPrice {
+      font-size: $font-600;
+
+      span {
+        font-size: $font-300;
+      }
+    }
+
+    .itemDescription h3 {
+      font-size: $font-500;
+      margin-bottom: $spacing-100;
+    }
+  }
+}

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styles from "./styles.module.scss";
 
 const PathWay = ({ PathWay }) => {
-  console.log("este es el error ?", PathWay);
   return (
     <ul className={styles.PathWay} data-testid="PathWay">
       {PathWay?.map((category) => (

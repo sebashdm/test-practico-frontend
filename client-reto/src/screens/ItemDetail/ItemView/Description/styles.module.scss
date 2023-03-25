@@ -1,0 +1,10 @@
+@import "../../../../utils/variables.scss";
+
+.paragraph {
+  font-size: $font-300;
+  color: $gray-200;
+
+  & + & {
+    margin-top: 1.5em;
+  }
+}
