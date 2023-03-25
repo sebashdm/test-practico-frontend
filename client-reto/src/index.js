@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { store } from "./redux/store";
 import App from "./App";
+import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

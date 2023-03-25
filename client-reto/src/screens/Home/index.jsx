@@ -1,11 +1,10 @@
-import React from 'react';
-import ItemsContainer from '../../components/ItemsContainer';
-
+import React from "react";
+import MainView from "./MainView";
 
 const Home = () => (
-    <>
-       <ItemsContainer />
-    </>
+  <>
+    <MainView />
+  </>
 );
 
 export default Home;

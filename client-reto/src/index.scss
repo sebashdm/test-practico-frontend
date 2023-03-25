@@ -1,0 +1,31 @@
+@import "./utils/variables";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: $gray-100;
+}
+
+main {
+  background-color: white;
+  padding: $spacing-100;
+  margin-bottom: 3em;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::placeholder {
+  color: $gray-150;
+  opacity: 1;
+}
