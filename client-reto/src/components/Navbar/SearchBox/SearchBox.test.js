@@ -1,11 +1,12 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import configureMockStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import SearchBox from "./index";
-import { fecthAsyncItems } from "../../../redux/items/itemsSlice";
+import { setTerm } from "../../../redux/search/searchSlice";
 import thunk from "redux-thunk";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 const mockStore = configureMockStore([thunk]);
 describe("SearchBox", () => {
@@ -13,10 +14,8 @@ describe("SearchBox", () => {
 
   beforeEach(() => {
     store = mockStore({
-      items: {
-        items: [],
-        selectedItem: {},
-        loading: null,
+      search: {
+        term: "",
       },
     });
   });
@@ -24,9 +23,7 @@ describe("SearchBox", () => {
   it("should render correctly", () => {
     const { getByPlaceholderText } = render(
       <Provider store={store}>
-        <BrowserRouter>
-          <SearchBox />
-        </BrowserRouter>
+        <SearchBox />
       </Provider>
     );
 
@@ -35,12 +32,10 @@ describe("SearchBox", () => {
     ).toBeTruthy();
   });
 
-  it("should dispatch fetchAsyncItems when the form is submitted with a search term", () => {
-    const { getByPlaceholderText, getByTestId } = render(
+  it("should update the search term in the store when the input value changes", () => {
+    const { getByPlaceholderText } = render(
       <Provider store={store}>
-        <BrowserRouter>
-          <SearchBox />
-        </BrowserRouter>
+        <SearchBox />
       </Provider>
     );
 
@@ -48,18 +43,9 @@ describe("SearchBox", () => {
       "Buscar productos, marcas y más..."
     );
     fireEvent.change(searchInput, { target: { value: "iphone" } });
-    fireEvent.submit(getByTestId("search-form"));
-
-    const expectedAction = {
-      type: "items/fecthAsyncItems/pending",
-      meta: {
-        arg: "iphone",
-        requestId: expect.any(String),
-        requestStatus: "pending",
-      },
-    };
 
     const actions = store.getActions();
+    const expectedAction = setTerm("iphone");
     expect(actions).toEqual([expectedAction]);
   });
 });
