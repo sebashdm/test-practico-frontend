@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setTerm } from "../../../redux/search/searchSlice";
@@ -7,11 +7,13 @@ import { fecthAsyncItems } from "../../../redux/items/itemsSlice";
 import Styles from "./styles.module.scss";
 
 const SearchBox = () => {
+  const [inputValue, setInputValue] = useState("");
   const term = useSelector((state) => state.search.term);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleChange = (e) => {
+    setInputValue(e.target.value);
     dispatch(setTerm(e.target.value));
   };
 
@@ -19,7 +21,7 @@ const SearchBox = () => {
     e.preventDefault();
     if (term) {
       dispatch(fecthAsyncItems(term));
-      dispatch(setTerm(""));
+      setInputValue("");
       history.push(`/items?search=${term}`);
     }
   };
@@ -34,7 +36,7 @@ const SearchBox = () => {
         type="text"
         id="search-input"
         placeholder="Buscar productos, marcas y más..."
-        value={term}
+        value={inputValue}
         onChange={handleChange}
         autoComplete="off"
       />
