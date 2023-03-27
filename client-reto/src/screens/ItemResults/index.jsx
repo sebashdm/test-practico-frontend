@@ -7,14 +7,20 @@ import ItemsList from "./ItemList";
 import { getLoadingStatus } from "../../redux/items/itemsSlice";
 import Loading from "../../components/Loading";
 import ErrorComponent from "../../components/ErrorComponent";
+import { setTerm } from "../../redux/search/searchSlice";
 
 const Results = () => {
   const dispatch = useDispatch();
   const loading = useSelector(getLoadingStatus);
 
   useEffect(() => {
-    dispatch(fecthAsyncItems());
-  }, [dispatch]);
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get("search");
+    if (query) {
+      dispatch(setTerm(query));
+      dispatch(fecthAsyncItems(query));
+    }
+  }, [dispatch, location.search]);
 
   return (
     <>
