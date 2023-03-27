@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import searchIcon from "../../../assets/search.png";
@@ -8,6 +7,7 @@ import Styles from "./styles.module.scss";
 
 const SearchBox = () => {
   const [term, setTerm] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -15,10 +15,12 @@ const SearchBox = () => {
     setTerm(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (term) {
-      dispatch(fecthAsyncItems(term));
+    if (term && term.trim() !== "" && !isSubmitting) {
+      setIsSubmitting(true);
+      await dispatch(fecthAsyncItems(term));
+      setIsSubmitting(false);
       history.push(`/items?search=${term}`);
       setTerm("");
     }
@@ -36,8 +38,9 @@ const SearchBox = () => {
         placeholder="Buscar productos, marcas y más..."
         value={term}
         onChange={handleChange}
+        autoComplete="off"
       />
-      <button aria-label="Buscar">
+      <button aria-label="Buscar" disabled={isSubmitting}>
         <img src={searchIcon} alt="Buscar" />
       </button>
     </form>
