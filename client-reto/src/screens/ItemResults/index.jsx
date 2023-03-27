@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HTTP_STATUS } from "../../redux/constants";
 import { fecthAsyncItems } from "../../redux/items/itemsSlice";
@@ -12,15 +11,17 @@ import { setTerm } from "../../redux/search/searchSlice";
 const Results = () => {
   const dispatch = useDispatch();
   const loading = useSelector(getLoadingStatus);
+  const [lastSearchTerm, setLastSearchTerm] = useState("");
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get("search");
-    if (query) {
+    if (query && query !== lastSearchTerm) {
+      setLastSearchTerm(query);
       dispatch(setTerm(query));
       dispatch(fecthAsyncItems(query));
     }
-  }, [dispatch, location.search]);
+  }, [dispatch, location.search, lastSearchTerm]);
 
   return (
     <>

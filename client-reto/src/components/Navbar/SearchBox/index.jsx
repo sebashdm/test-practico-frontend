@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setTerm } from "../../../redux/search/searchSlice";
 import searchIcon from "../../../assets/search.png";
-import { fecthAsyncItems } from "../../../redux/items/itemsSlice";
 import Styles from "./styles.module.scss";
 
 const SearchBox = () => {
@@ -20,7 +19,6 @@ const SearchBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (term) {
-      dispatch(fecthAsyncItems(term));
       setInputValue("");
       history.push(`/items?search=${term}`);
     }
