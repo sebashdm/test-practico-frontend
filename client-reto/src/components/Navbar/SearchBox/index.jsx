@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import searchIcon from "../../../assets/search.png";
@@ -10,6 +10,18 @@ const SearchBox = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    const checkInitialLoad = async () => {
+      const initialState = await dispatch(fecthAsyncItems());
+      if (initialState) {
+        setIsSubmitting(false);
+      } else {
+        dispatch(fecthAsyncItems()).then(() => setIsSubmitting(false));
+      }
+    };
+    checkInitialLoad();
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setTerm(e.target.value);
